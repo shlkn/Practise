@@ -43,6 +43,10 @@ private:
 
     //find
     void FindCustomer();
+
+    QSqlQueryModel *tbTypography;
+    QSqlQueryModel *tbPublisher;
+    QSqlQueryModel *tbCustomer;
 };
 
 #endif // MAINWINDOW_H

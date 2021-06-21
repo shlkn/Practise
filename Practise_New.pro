@@ -1,8 +1,13 @@
 QT       += core gui
-QT       += core gui sql
+
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
+
 QT += core5compat
+
 CONFIG += c++11
+
+
+QT       += core gui sql
 
 # You can make your code fail to compile if it uses deprecated APIs.
 # In order to do so, uncomment the following line.

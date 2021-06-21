@@ -3,15 +3,14 @@
 #include <QTextCodec>
 
 
-QSqlQueryModel *tbCustomer = new QSqlQueryModel;
-QSqlQueryModel *tbPublisher = new QSqlQueryModel;
-QSqlQueryModel *tbTypography = new QSqlQueryModel;
-
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::MainWindow)
 {
+    tbCustomer = new QSqlQueryModel;
+    tbPublisher = new QSqlQueryModel;
+    tbTypography = new QSqlQueryModel;
     QTextCodec::setCodecForLocale(QTextCodec::codecForName("Windows-1251"));
     ui->setupUi(this);
 
@@ -21,6 +20,7 @@ MainWindow::MainWindow(QWidget *parent)
         while (true)
             QApplication::quit();
     connectTables();
+    setlocale(LC_ALL, "Russian");
 }
 
 MainWindow::~MainWindow()
@@ -74,7 +74,7 @@ void MainWindow::connectTables()
     {
         QMessageBox msg;
         msg.setWindowTitle(QString::fromLocal8Bit("Внимание!"));
-        msg.setText(QString::fromLocal8Bit("Ошибка!\nНе удалось подключить таблицу заказчиков!"));
+        msg.setText("Ошибка!\nНе удалось подключить таблицу заказчиков!"); //QString::fromLocal8Bit("Ошибка!\nНе удалось подключить таблицу заказчиков!"));
         msg.exec();
         return;
     }
@@ -135,6 +135,7 @@ void MainWindow::connectTables()
 void MainWindow::AddCustomer()
 {
 
+
     QString name, surname, secondName, tel, email, address, org; // temp for query
     int order_number;
     name = ui->Name->text();
@@ -150,10 +151,8 @@ void MainWindow::AddCustomer()
     if(!ok)
     {
         QMessageBox msg;
-        msg.setWindowTitle(QString::fromLocal8Bit("Внимание!"));
-        msg.setText(QString::fromLocal8Bit("Введённое значение номера заказа либо отсутвует либо не является числом."));
-        msg.exec();
-        return;
+        msg.setWindowTitle("Внимание!");
+        msg.setText("Введённое значение номера заказа либо отсутвует либо не является числом.");
     }
 
 
@@ -190,8 +189,8 @@ void MainWindow::AddCustomer()
     else
     {
         QMessageBox msg;
-        msg.setWindowTitle(QString::fromLocal8Bit("Ошибка"));
-        msg.setText(QString::fromLocal8Bit("Есть пустые поля, заполните их и повторите снова."));
+        msg.setWindowTitle("Ошибка");
+        msg.setText("Есть пустые поля, заполните их и повторите снова.");
         msg.exec();
         return;
     }
@@ -235,8 +234,8 @@ void MainWindow::AddTypography()
     else
     {
         QMessageBox msg;
-        msg.setWindowTitle(QString::fromLocal8Bit("Ошибка"));
-        msg.setText(QString::fromLocal8Bit("Есть пустые поля, заполните их и повторите снова."));
+        msg.setWindowTitle("Ошибка");
+        msg.setText("Есть пустые поля, заполните их и повторите снова.");
         msg.exec();
         return;
     }
@@ -253,8 +252,8 @@ void MainWindow::AddPublicationInfo()
     if(!ok)
     {
         QMessageBox msg;
-        msg.setWindowTitle(QString::fromLocal8Bit("Внимание!"));
-        msg.setText(QString::fromLocal8Bit("Введённое значение кода либо отсутвует либо не является числом."));
+        msg.setWindowTitle("Внимание!");
+        msg.setText("Введённое значение кода либо отсутвует либо не является числом.");
         msg.exec();
         return;
     }
@@ -264,8 +263,8 @@ void MainWindow::AddPublicationInfo()
     if(!ok)
     {
         QMessageBox msg;
-        msg.setWindowTitle(QString::fromLocal8Bit("Внимание!"));
-        msg.setText(QString::fromLocal8Bit("Введённое значение объёма либо отсутвует либо не является числом."));
+        msg.setWindowTitle("Внимание!");
+        msg.setText("Введённое значение объёма либо отсутвует либо не является числом.");
         msg.exec();
         return;
     }
@@ -275,8 +274,8 @@ void MainWindow::AddPublicationInfo()
     if(!ok)
     {
         QMessageBox msg;
-        msg.setWindowTitle(QString::fromLocal8Bit("Внимание!"));
-        msg.setText(QString::fromLocal8Bit("Введённое значение тиража либо отсутвует либо не является числом."));
+        msg.setWindowTitle("Внимание!");
+        msg.setText("Введённое значение тиража либо отсутвует либо не является числом.");
         msg.exec();
         return;
     }
@@ -285,8 +284,8 @@ void MainWindow::AddPublicationInfo()
     if(!ok)
     {
         QMessageBox msg;
-        msg.setWindowTitle(QString::fromLocal8Bit("Внимание!"));
-        msg.setText(QString::fromLocal8Bit("Введённое значение номера заказа либо отсутвует либо не является числом."));
+        msg.setWindowTitle("Внимание!");
+        msg.setText("Введённое значение номера заказа либо отсутвует либо не является числом.");
         msg.exec();
         return;
     }
@@ -322,8 +321,8 @@ void MainWindow::AddPublicationInfo()
     else
     {
         QMessageBox msg;
-        msg.setWindowTitle(QString::fromLocal8Bit("Ошибка"));
-        msg.setText(QString::fromLocal8Bit("Есть пустые поля, заполните их и повторите снова."));
+        msg.setWindowTitle("Ошибка");
+        msg.setText("Есть пустые поля, заполните их и повторите снова.");
         msg.exec();
         return;
     }
@@ -335,8 +334,8 @@ void MainWindow::DeleteCustomer()
     if (str == "")
     {
         QMessageBox msg;
-        msg.setWindowTitle(QString::fromLocal8Bit("Внимание!"));
-        msg.setText(QString::fromLocal8Bit("Нет ID для удаления!"));
+        msg.setWindowTitle("Внимание!");
+        msg.setText("Нет ID для удаления!");
         msg.exec();
         return;
     }
@@ -345,8 +344,8 @@ void MainWindow::DeleteCustomer()
     if(!ok)
     {
         QMessageBox msg;
-        msg.setWindowTitle(QString::fromLocal8Bit("Внимание!"));
-        msg.setText(QString::fromLocal8Bit("Введённое значение ID не является числом."));
+        msg.setWindowTitle("Внимание!");
+        msg.setText("Введённое значение ID не является числом.");
         msg.exec();
         return;
     }
@@ -365,8 +364,8 @@ void MainWindow::DeleteTypo()
     if (str == "")
     {
         QMessageBox msg;
-        msg.setWindowTitle(QString::fromLocal8Bit("Внимание!"));
-        msg.setText(QString::fromLocal8Bit("Нет ID для удаления!"));
+        msg.setWindowTitle("Внимание!");
+        msg.setText("Нет ID для удаления!");
         msg.exec();
         return;
     }
@@ -375,8 +374,8 @@ void MainWindow::DeleteTypo()
     if(!ok)
     {
         QMessageBox msg;
-        msg.setWindowTitle(QString::fromLocal8Bit("Внимание!"));
-        msg.setText(QString::fromLocal8Bit("Введённое значение ID не является числом."));
+        msg.setWindowTitle("Внимание!");
+        msg.setText("Введённое значение ID не является числом.");
         msg.exec();
         return;
     }
@@ -395,8 +394,8 @@ void MainWindow::DeleteIzdat()
     if (str == "")
     {
         QMessageBox msg;
-        msg.setWindowTitle(QString::fromLocal8Bit("Внимание!"));
-        msg.setText(QString::fromLocal8Bit("Нет ID для удаления!"));
+        msg.setWindowTitle("Внимание!");
+        msg.setText("Нет ID для удаления!");
         msg.exec();
         return;
     }
@@ -405,8 +404,8 @@ void MainWindow::DeleteIzdat()
     if(!ok)
     {
         QMessageBox msg;
-        msg.setWindowTitle(QString::fromLocal8Bit("Внимание!"));
-        msg.setText(QString::fromLocal8Bit("Введённое значение ID не является числом."));
+        msg.setWindowTitle("Внимание!");
+        msg.setText("Введённое значение ID не является числом.");
         msg.exec();
         return;
     }
@@ -454,7 +453,7 @@ void MainWindow::FindCustomer()
             {
                 qDebug() << query.value(rec.indexOf("ID")).toString();
                 QMessageBox msg;
-                msg.setWindowTitle("yspeckh");
+                msg.setWindowTitle("Успех");
                 QString temp = "id - ";
                 temp.append(query.value(rec.indexOf("ID")).toString());
                 msg.setText(temp);
@@ -469,8 +468,8 @@ void MainWindow::FindCustomer()
     else
     {
         QMessageBox msg;
-        msg.setWindowTitle(QString::fromLocal8Bit("Ошибка"));
-        msg.setText(QString::fromLocal8Bit("Есть пустые поля, заполните их и повторите снова."));
+        msg.setWindowTitle("Ошибка");
+        msg.setText("Есть пустые поля, заполните их и повторите снова.");
         msg.exec();
         return;
     }
